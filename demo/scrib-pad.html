@@ -1,0 +1,137 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="scrib-pad">
+  <template>
+	<div >
+    		<content></content>
+    </div>
+  </template>
+  <script>
+  Polymer('scrib-pad', {
+  	created:function(){
+        var self=this;
+        var nodes = self.children;
+        var lastPosition = {x:0,y:0,scale:1};
+        for(var index=0;index<nodes.length;index++){
+        	var transitionType = nodes[index].getAttribute('transitionType');
+        	if (transitionType === 'zoomout') {
+        		lastPosition.scale = lastPosition.scale * 100;	
+        	} else if (transitionType === 'slideleft') {
+        		lastPosition.x = (lastPosition.x + 1100) *lastPosition.scale;
+        	}
+   			nodes[index].setAttribute('scale',lastPosition.scale);
+   			nodes[index].setAttribute('x',lastPosition.x);
+   			nodes[index].setAttribute('y',lastPosition.y);
+   		}
+ 	}
+	});
+  </script>
+</polymer-element>
+<polymer-element name="s-note" noscript attributes="layout start x y transitionType">
+  <template >
+  	<template if="{{layout==='title'}}">
+    	<content select="s-title"></content>
+    	<content select="s-details"></content>
+    	<s-footer></s-footer>
+    </template>
+    <template if="{{layout === 'blank'}}">
+    	<content select="s-details"></content>
+    </template>
+  </template>
+  <script>
+  	Polymer('s-note', {layout:'blank',transitionType:'zoomout',start:'n',x:'0',y:'0',scale:'1',
+	  	created: function () {
+	  		this.setAttribute('data-x',this.getAttribute('x'));
+	  		this.setAttribute('data-y',this.getAttribute('y'));
+	  		this.setAttribute('data-scale',this.getAttribute('scale'));
+	  		if (this.getAttribute('start') === 'y') {
+	  			this.setAttribute('class', 'step present active');
+	  		} else {
+	  			this.setAttribute('class', 'step future');
+	  		}
+	  	}
+  	});
+  </script>
+</polymer-element>
+
+<polymer-element name="s-title">
+    <template>
+        <style>
+            :host {
+                display:block;
+                height:10%;
+                width:100%;
+                text-align: center;
+                font-weight: bold;
+            }
+        </style>
+        <section>
+            <content></content>
+        </section>
+    </template>
+    <script>
+        Polymer('s-title', {
+        });
+
+    </script>
+
+</polymer-element>
+<polymer-element name="s-details">
+    <template>
+        <style>
+            :host {
+                display:block;
+                width:100%;
+            }
+        </style>
+        <section>
+            <content></content>
+        </section>
+    </template>
+    <script>
+        Polymer('s-details', {
+        });
+
+    </script>
+
+</polymer-element>
+<polymer-element name="s-footer">
+    <template>
+        <app-globals id="globals"></app-globals>
+        <style>
+            :host {
+                display:block;
+                position: absolute;
+                bottom: 0;
+                width:100%;
+            }
+        </style>
+        <section>
+            {{globals.values.footer}}
+        </section>
+    </template>
+    <script>
+        Polymer('s-footer', {
+            ready: function() { this.globals = this.$.globals;}
+        });
+
+    </script>
+
+</polymer-element>
+
+<polymer-element name="app-globals">
+  <script>
+  (function() {
+    var values = {};
+    Polymer('app-globals', {
+       ready: function() {
+         for (var i = 0; i < this.attributes.length; ++i) {
+           var attr = this.attributes[i];
+           values[attr.nodeName] = attr.nodeValue;
+         }
+         this.values = values;
+       }
+    });
+  })();
+  </script>
+</polymer-element>
