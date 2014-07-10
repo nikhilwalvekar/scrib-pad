@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>scrib-pad Demo</title>
+  <script src="../platform/platform.js"></script>
+  <link rel="import" href="scrib-pad.html">
+  <style>
+    .step { width: 900px;height: 600px;}
+    s-note{
+      border: 1px solid #aaa;
+      padding: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body unresolved >
+<scrib-pad id="impress" data-transition-duration="1500" >
+  <s-note start='y' transitionType='slideleft'>
+    <s-details><h1 id="the-problem">Slide 1 details</h1>Uses blank layout which does not have title and footer.</s-details>
+    <s-footer>some footer</s-footer>
+  </s-note>
+  <s-note layout="title" transitionType='zoomout'>
+    <s-title>Slide 2 title</s-title>
+    <s-details><h1 id="the-problem">slide 2 details</h1></s-details>
+    <s-footer>some footer</s-footer>
+  </s-note>
+  <s-note layout="title" transitionType='slideleft'>
+    <s-title>Slide 3 title</s-title>
+    <s-details><h1 id="the-problem">slide 3 details</h1></s-details>
+    <s-footer>some footer</s-footer>
+  </s-note>
+  <s-note layout="title" transitionType='zoomout'>
+    <s-title>Slide 4 title</s-title>
+    <s-details><h1 id="the-problem">slide 4 details</h1></s-details>
+    <s-footer>some footer</s-footer>
+  </s-note>
+</scrib-pad>
+</body>
+<script src="impress.js"></script>
+<script>
+window.addEventListener('WebComponentsReady', function(e) {
+  impress().init();console.log("init");
+});
+</script>
+</html>

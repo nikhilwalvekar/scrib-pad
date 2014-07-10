@@ -1,0 +1,9 @@
+{
+  "name": "scrib-pad",
+  "version": "0.0.0",
+  "keywords": "impress,simple, polymer, web-components",
+  "main": "scrib-pad.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.1"
+  }
+}
