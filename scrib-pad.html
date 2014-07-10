@@ -32,7 +32,7 @@
   	<template if="{{layout==='title'}}">
     	<content select="s-title"></content>
     	<content select="s-details"></content>
-    	<content select="s-footer"></content>
+    	<s-footer></s-footer>
     </template>
     <template if="{{layout === 'blank'}}">
     	<content select="s-details"></content>
@@ -97,6 +97,7 @@
 </polymer-element>
 <polymer-element name="s-footer">
     <template>
+        <app-globals id="globals"></app-globals>
         <style>
             :host {
                 display:block;
@@ -106,14 +107,31 @@
             }
         </style>
         <section>
-            <content></content>
+            {{globals.values.footer}}
         </section>
     </template>
     <script>
         Polymer('s-footer', {
+            ready: function() { this.globals = this.$.globals;}
         });
 
     </script>
 
 </polymer-element>
 
+<polymer-element name="app-globals">
+  <script>
+  (function() {
+    var values = {};
+    Polymer('app-globals', {
+       ready: function() {
+         for (var i = 0; i < this.attributes.length; ++i) {
+           var attr = this.attributes[i];
+           values[attr.nodeName] = attr.nodeValue;
+         }
+         this.values = values;
+       }
+    });
+  })();
+  </script>
+</polymer-element>
