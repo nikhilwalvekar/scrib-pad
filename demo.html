@@ -6,7 +6,6 @@
   <script src="../platform/platform.js"></script>
   <link rel="import" href="scrib-pad.html">
   <style>
-    .step { width: 900px;height: 600px;}
     s-note{
       border: 1px solid #aaa;
       padding: 10px;
@@ -15,6 +14,11 @@
   </style>
 </head>
 <body unresolved >
+  <script type="text/javascript">
+    var sheet = document.createElement('style')
+    sheet.innerHTML = ".step {width:" + (window.innerWidth  * 0.95) + "px;" + "height: " + (window.innerHeight * 0.95 )+ "px;";
+    document.body.appendChild(sheet);
+  </script>
 <app-globals footer="using global footer"></app-globals>
 <my-component></my-component>
 <scrib-pad id="impress" data-transition-duration="1500" >
