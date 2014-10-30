@@ -19,8 +19,10 @@
     sheet.innerHTML = ".step {width:" + (window.innerWidth  * 0.95) + "px;" + "height: " + (window.innerHeight * 0.95 )+ "px;";
     document.body.appendChild(sheet);
   </script>
+
 <app-globals footer="using global footer"></app-globals>
-<scrib-pad id="impress" data-transition-duration="1500" >
+<s-theme></s-theme>
+<scrib-pad id="impress" data-transition-duration="1500" class="blue">
   <s-note start='y' transition='slideleft'>
     <s-details><h1 id="the-problem">Slide 1 details</h1>Uses blank layout which does not have title and footer.</s-details>
   </s-note>

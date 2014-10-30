@@ -2,9 +2,16 @@
 
 <polymer-element name="scrib-pad">
   <template>
+  <style>
+        /*:host {
+            color: blue;
+        }*/
+
+  </style>
     <div >
             <content></content>
     </div>
+
   </template>
   <script>
   Polymer('scrib-pad', {
@@ -117,6 +124,22 @@
 
     </script>
 
+</polymer-element>
+
+<polymer-element name="s-theme">
+    <template>
+    <style type="text/css">
+    </style>
+    </template>
+    <script>
+        Polymer('s-theme', {            
+        });
+        var el = document.createElement('link');
+        el.href="blue.css";
+        el.type="text/css";
+        document.head.appendChild(el);
+        console.log(el);
+    </script>
 </polymer-element>
 
 <polymer-element name="app-globals">
