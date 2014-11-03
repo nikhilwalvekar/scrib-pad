@@ -1,5 +1,44 @@
 <link rel="import" href="../polymer/polymer.html">
 
+<polymer-element name="app-globals">
+  <script>
+  (function() {
+    var values = {};
+    Polymer('app-globals', {
+       ready: function() {
+         for (var i = 0; i < this.attributes.length; ++i) {
+           var attr = this.attributes[i];
+           values[attr.nodeName] = attr.value;
+         }
+         this.values = values;
+       }
+    });
+  })();
+  </script>
+</polymer-element>
+<polymer-element name="s-footer">
+    <template>
+        <app-globals id="globals"></app-globals>
+        <style>
+            :host {
+                display:block;
+                position: absolute;
+                bottom: 0;
+                width:100%;
+            }
+        </style>
+        <section>
+            {{globals.values.footer}}
+        </section>
+    </template>
+    <script>
+        Polymer('s-footer', {
+            ready: function() { this.globals = this.$.globals;}
+        });
+
+    </script>
+
+</polymer-element>
 <polymer-element name="scrib-pad">
   <template>
   <style>
@@ -15,10 +54,11 @@
   </template>
   <script>
   Polymer('scrib-pad', {
-    created:function(){
+    domReady:function(){
         var self=this;
         var nodes = self.children;
         var lastPosition = {x:0,y:0,scale:1};
+        console.log("pad read " + nodes.length);
         for(var index=0;index<nodes.length;index++){
             var transition = nodes[index].getAttribute('transition');
             if (transition === 'zoomout') {
@@ -47,7 +87,8 @@
   </template>
   <script>
     Polymer('s-note', {layout:'blank',transition:'zoomout',start:'n',x:'0',y:'0',scale:'1',
-        created: function () {
+        domReady: function () {
+            console.log("note ready " + this.x);
             this.setAttribute('data-x',this.getAttribute('x'));
             this.setAttribute('data-y',this.getAttribute('y'));
             this.setAttribute('data-scale',this.getAttribute('scale'));
@@ -102,29 +143,6 @@
     </script>
 
 </polymer-element>
-<polymer-element name="s-footer">
-    <template>
-        <app-globals id="globals"></app-globals>
-        <style>
-            :host {
-                display:block;
-                position: absolute;
-                bottom: 0;
-                width:100%;
-            }
-        </style>
-        <section>
-            {{globals.values.footer}}
-        </section>
-    </template>
-    <script>
-        Polymer('s-footer', {
-            ready: function() { this.globals = this.$.globals;}
-        });
-
-    </script>
-
-</polymer-element>
 
 <polymer-element name="s-theme">
     <template>
@@ -140,21 +158,4 @@
         document.head.appendChild(el);
         console.log(el);
     </script>
-</polymer-element>
-
-<polymer-element name="app-globals">
-  <script>
-  (function() {
-    var values = {};
-    Polymer('app-globals', {
-       ready: function() {
-         for (var i = 0; i < this.attributes.length; ++i) {
-           var attr = this.attributes[i];
-           values[attr.nodeName] = attr.nodeValue;
-         }
-         this.values = values;
-       }
-    });
-  })();
-  </script>
 </polymer-element>
