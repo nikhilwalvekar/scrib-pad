@@ -20,3 +20,6 @@ Running the Demo
 I am using apache server, in which I have linked my scrib-pad repo.
 
 * http://localhost/scrib-pad/demo.html
+
+Online demo:
+http://nikhilwalvekar.github.io/scrib-pad/demo
